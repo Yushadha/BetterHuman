@@ -5,10 +5,11 @@ class GoalsController < ApplicationController
   def new
   end
 
-  def ccreate
+  def create
   end
 
   def show
+    @goal = Goal.find(params[id])
   end
 
   def edit
