@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  #before_action :find_user
+
   def index
     @user = User.all
   end
@@ -18,6 +20,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @goal = Goal.where(user_id: 1)
   end
 
   def edit
@@ -43,10 +46,10 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit([:first_name, :last_name])
+    params.require(:user).permit([:id, :name, :email])
   end
 
   def find_user
-    @user = user.find(params[:id])
+    @user = User.find(params[:id])
   end
 end
