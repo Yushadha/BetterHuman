@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  #before_action :find_user
+  before_filter :authorize
 
   def index
     @user = User.all
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @goal = Goal.where(user_id: 1)
+    @goal = Goal.where(user_id: current_user.id)
     @new_goal = Goal.new
   end
 
