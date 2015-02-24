@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
   def show
     @goal = Goal.where(user_id: 1)
+    @new_goal = Goal.new
   end
 
   def edit

@@ -6,3 +6,8 @@
 	<%= goal.description %>
 	<br>
 <% end %>
+
+<%=  form_for @new_goal do |new_goal| %>
+	<%= new_goal.text_area :description, :value => "my next goal" %>
+	<%= new_goal.submit 'add goal' %>
+<% end %>
