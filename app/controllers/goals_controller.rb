@@ -22,12 +22,33 @@ class GoalsController < ApplicationController
   end
 
   def edit
+    redirect_to '/users/show', alert: "access denied" unless can? :update, @goal
+    if @goal.update goal_params
+      redirect_to @goal, notice: "Goal updated successfully!"
+    else
+      redirect_to '/users/show'
+    end
   end
 
   def update
   end
 
   def destroy
+    find_goal
+    @goal.destroy
+    redirect_to '/users/show', notice: "goal removed"
+    rank_goals
+  end
+
+  def move_up
+    render params
+    # find_goal
+    # @goal_above = Goal.where(ranking: (@goal.ranking - 1))
+    # @goal.ranking = @goal.ranking - 1
+    # @goal_above.ranking = @goal_above.ranking + 1
+    # @goal.save
+    # @goal_above.save
+    # redirect_to '/users/show'
   end
 
   private
@@ -36,7 +57,17 @@ class GoalsController < ApplicationController
     params.require(:goal).permit([:ranking, :description])
   end
 
-  def find_user
+  def find_goal
     @goal = Goal.find(params[:id])
+  end
+
+  def rank_goals
+    @goal_user = Goal.where(user_id: current_user.id).order(:ranking)
+    counter = 0
+    @goal_user.each do |goal|
+      counter += 1
+      goal.ranking = counter
+      goal.save
+    end
   end
 end

@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @goal = Goal.where(user_id: current_user.id)
+    @goal = Goal.where(user_id: current_user.id).order(:ranking)
     @new_goal = Goal.new
   end
 

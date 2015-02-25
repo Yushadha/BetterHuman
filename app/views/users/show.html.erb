@@ -2,13 +2,29 @@
 <p>Find me in app/views/users/show.html.erb</p>
 
 <% @goal.each do |goal| %>
-	<%= goal.ranking %>
-	<%= goal.description %>
-	<br>
+	<table>
+		<tr>
+			<td><%= link_to "move up", move_goal_up_path(goal), method: :patch, class: "btn btn-default", remote: true %></td>
+			<td><%= goal.ranking %></td>
+			<td><%= goal.description %></td>
+			<td>edit</td>
+			<td>
+				<%= link_to "delete", goal, method: :delete, class: "btn btn-default" %>
+			</td>
+		</tr>
+		<br>
+	</table>
 <% end %>
-
-<%=  form_for @new_goal do |new_goal| %>
-	<%= new_goal.text_area :description, :value => "my next goal" %>
-
-	<%= new_goal.submit 'add goal' %>
-<% end %>
+	<table>
+		<tr><br></tr>
+		<tr>
+			<td>
+			<%=  form_for @new_goal do |new_goal| %>
+				<%= new_goal.text_area :description, :value => "my next goal" %>
+			</td>
+			<td>
+				<%= new_goal.submit 'add goal' %>
+			</td>
+		<% end %>
+		</tr>
+</table>

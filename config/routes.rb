@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
 
+  patch 'goals/:id/' => 'goals#move_up', as: :move_goal_up
+
   root "users#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
